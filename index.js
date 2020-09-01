@@ -1,11 +1,26 @@
-const mongoose = require('mongoose');
+const connection = require('./Models/connection');
 
-mongoose.connect("mongodb://localhost:27017/test_db",{ useNewUrlParser: true }, (err)=>{
-	if(!err){
-		console.log('Mongo DB Connected successfully.');
-	}else{
-		console.log(err)
-	}
+const express = require('express');
+const app = express();
+const path  = require('path');
+const expressHandleBars = require('express-handlebars');
+const bodyParser = require('body-parser');
+
+const userController = require("./controllers/users");
+const orderController = require("./controllers/orders");
+
+
+app.use(bodyParser.urlencoded({
+	extended : true
+}));
+
+app.get("/",(req,res)=>{
+	res.send("Hello")
 });
 
-const User  = require('./Models/user.js');
+app.listen("2000",()=>{
+	console.log("Node js server is up and running on port 2000");
+});
+
+app.use("/user",userController);
+app.use("/order",orderController);

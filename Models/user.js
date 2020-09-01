@@ -8,6 +8,11 @@ var UserSchema = new mongoose.Schema({
 	name : {
 		type : String,
 		required : "required"
+	},
+	noOfOrders : {
+		type : Number,
+		required : "required",
+		default : 0
 	}
 });
 
